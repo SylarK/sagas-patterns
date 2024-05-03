@@ -1,5 +1,7 @@
 package com.amado;
 
+import com.amado.service.BalanceService;
+import com.amado.service.OrderService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;

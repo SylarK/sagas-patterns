@@ -1,4 +1,4 @@
-package com.amado;
+package com.amado.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import java.util.HashSet;
