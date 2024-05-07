@@ -13,5 +13,8 @@ public class OrderService {
     orders.add(orderId);
   }
 
+  public void cancelOrder(Long orderId) {
+    orders.remove(orderId);
+  }
 
 }
