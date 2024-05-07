@@ -14,7 +14,7 @@ public class BalanceService {
     balanceTotal = 100;
   }
 
-  public void addOrder(Long orderId, Integer amount) {
+  public void addBalancePerOrder(Long orderId, Integer amount) {
     if(balanceTotal < amount) {
       throw new RuntimeException("Insufficient balance");
     }
