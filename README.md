@@ -1,61 +1,31 @@
-# purchase-saga
+# Purchase Saga
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This project, named "Purchase Saga", is a Java-based application that uses the Quarkus framework, Spring Boot, and Maven. It is currently under development in the `saga-camel-quarkus` branch.
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+The application is designed to demonstrate the Saga design pattern, which is a sequence of local transactions where each transaction updates data within a single service. The Saga pattern is a way to manage data consistency across services in a microservices architecture.
 
-## Running the application in dev mode
+The project uses Apache Camel's Saga EIP (Enterprise Integration Pattern) to manage the transactions. The Saga EIP allows you to define a series of related actions in a Camel route that should be either completed successfully (all of them) or not-executed or compensated in case of an error.
 
-You can run your application in dev mode that enables live coding using:
+## Running the Application
+
 ```shell script
 ./mvnw compile quarkus:dev
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+The application can be packaged using the following command:
 
-## Packaging and running the application
-
-The application can be packaged using:
 ```shell script
 ./mvnw package
 ```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+To create a native executable of the application, you can use:
 
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using: 
 ```shell script
 ./mvnw package -Dnative
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
+## Further Reading
 
-You can then execute your native executable with: `./target/purchase-saga-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
-
-## Related Guides
-
-- RESTEasy Classic ([guide](https://quarkus.io/guides/resteasy)): REST endpoint framework implementing Jakarta REST and more
-- Camel Saga ([guide](https://camel.apache.org/camel-quarkus/latest/reference/extensions/saga.html)): Execute custom actions within a route using the Saga EIP
-
-## Provided Code
-
-### RESTEasy JAX-RS
-
-Easily start your RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
+- [Quarkus Guides](https://quarkus.io/guides/)
+- [Apache Camel Saga EIP](https://camel.apache.org/camel-quarkus/latest/reference/extensions/saga.html)
+- [Spring Boot](https://spring.io/projects/spring-boot)
