@@ -25,7 +25,7 @@ public class SagaRoute extends RouteBuilder {
 
     from("direct:saga")
       .saga().propagation(SagaPropagation.REQUIRES_NEW).log("Saga started")
-      .to("direct:createOrder").log("Creating order")
+      .to("direct:createOrder").log("Creating new order with id ${header.orderId}")
       .to("direct:addBalancePerOrder").log("Reserving balance")
       .to("direct:finishOrder").log("Finishing order");
 
@@ -45,18 +45,19 @@ public class SagaRoute extends RouteBuilder {
       .saga().propagation(SagaPropagation.MANDATORY)
         .compensation("direct:removeBalancePerOrder")
       .transform().header(Exchange.SAGA_LONG_RUNNING_ACTION)
-      .bean(balanceService, "addBalancePerOrder").log("Balance ${header.amount} reserved for order $<header.orderId> (saga ${body})");
+      .bean(balanceService, "addBalancePerOrder").log("Balance reserved for order saga ${body}");
 
     from("direct:removeBalancePerOrder")
       .transform().header(Exchange.SAGA_LONG_RUNNING_ACTION)
-      .bean(balanceService, "cancelOrder").log("Balance ${header.amount} cancelled for order $<header.orderId> (saga ${body})");
+      .bean(balanceService, "cancelOrder").log("Balance cancelled for saga ${body}");
 
     //Finish Order
     from("direct:finishOrder")
       .saga().propagation(SagaPropagation.MANDATORY)
+      .bean(balanceService, "getBalanceTotal")
+      .log("Balance left: ${body}")
       .choice()
-        .when(header("fail").isEqualTo(true))
-        .to("saga:compensate");
+      .end();
 
   }
 

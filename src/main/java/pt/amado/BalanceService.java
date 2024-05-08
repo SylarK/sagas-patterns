@@ -3,18 +3,19 @@ package pt.amado;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.camel.Header;
 
 @ApplicationScoped
 public class BalanceService {
 
-  private long balanceTotal;
-  private Map<Long, Integer> balancePerOrder = new HashMap<>();
+  private int balanceTotal;
+  private final Map<Long, Integer> balancePerOrder = new HashMap<>();
 
   public BalanceService() {
     balanceTotal = 100;
   }
 
-  public void addBalancePerOrder(Long orderId, Integer amount) {
+  public void addBalancePerOrder(@Header("orderId") Long orderId, @Header("amount") Integer amount) {
     if(balanceTotal < amount) {
       throw new RuntimeException("Insufficient balance");
     }
@@ -22,16 +23,11 @@ public class BalanceService {
     balanceTotal -= amount;
   }
 
-  public void cancelOrder(Long orderId) {
-    Integer amount = balancePerOrder.get(orderId);
-    if(amount == null) {
-      throw new RuntimeException("Order not found");
-    }
-    balancePerOrder.remove(orderId);
-    balanceTotal += amount;
+  public void cancelOrder(@Header("orderId") Long orderId) {
+    System.out.println("OrderValue failed. Starting order cancel...");
   }
 
-  public long getBalanceTotal() {
+  public int getBalanceTotal() {
     return balanceTotal;
   }
 }
