@@ -1,6 +1,6 @@
 # Purchase Saga
 
-This project, named "Purchase Saga", is a Java-based application that uses the Quarkus framework, Spring Boot, and Maven. It is currently under development in the `saga-camel-quarkus` branch.
+This project, named "Purchase Saga", is a Java-based application that uses the Quarkus framework. It is currently under development in the `saga-camel-quarkus` branch.
 
 The application is designed to demonstrate the Saga design pattern, which is a sequence of local transactions where each transaction updates data within a single service. The Saga pattern is a way to manage data consistency across services in a microservices architecture.
 
